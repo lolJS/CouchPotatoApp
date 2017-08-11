@@ -1,0 +1,3 @@
+rootProject.name = 'CouchPotatoApp'
+
+include ':app'
