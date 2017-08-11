@@ -1,6 +1,7 @@
-/* global fetch, URL */
+/* global fetch */
 import React, { Component, PropTypes } from 'react';
 import { ListView, View } from 'react-native';
+import queryString from 'query-string';
 
 import Error from '../components/Error';
 import MovieListItem from '../components/MovieListItem';
@@ -18,16 +19,14 @@ class MovieList extends Component {
   }
 
   componentDidMount() {
-    const url = new URL(`${this.props.couchPotatoUrl}/api/${this.props.apiKey}/media.list/`);
+    const url = `${this.props.couchPotatoUrl}/api/${this.props.apiKey}/media.list/`;
     const params = {
       type: 'movie',
       status: 'active',
       limit_offset: '50,0'
     };
 
-    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-
-    fetch(url.href, {
+    fetch(`${url}?${queryString.stringify(params)}`, {
       method: 'GET',
       headers: {
         Host: `${this.props.couchPotatoUrl}/movies/`,
@@ -50,7 +49,7 @@ class MovieList extends Component {
     const { couchPotatoUrl, apiKey } = this.props;
 
     return (
-      <View>
+      <View style={{ backgroundColor: '#2d2d2d' }}>
         {error &&
           <Error
             error={error}
@@ -59,9 +58,20 @@ class MovieList extends Component {
           />}
         {this.state.snatchedMovies &&
           <ListView
-            style={{ padding: 0 }}
+            contentContainerStyle={{
+              paddingTop: 15,
+              paddingBottom: 70,
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'center'
+            }}
             dataSource={snatchedMovies}
-            renderRow={({ title, releases, info: { year, imdb }, files: { image_poster: [poster] } }) =>
+            renderRow={({
+              title,
+              releases,
+              info: { year, imdb },
+              files: { image_poster: [poster] }
+            }) =>
               <MovieListItem
                 img={`${couchPotatoUrl}/api/${apiKey}/file.${poster.match(/cache.+/g)[0]}`}
                 title={title}

@@ -27,4 +27,4 @@ class CouchPotatoApp extends Component {
   }
 }
 
-AppRegistry.registerComponent('CouchPotatoReactNative', () => CouchPotatoApp);
+AppRegistry.registerComponent('CouchPotatoApp', () => CouchPotatoApp);

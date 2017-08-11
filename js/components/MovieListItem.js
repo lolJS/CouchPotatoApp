@@ -43,22 +43,28 @@ export default function ({ title, year, releases, url, img }) {
         paddingRight: 0,
         paddingTop: 0,
         paddingBottom: 0,
-        marginTop: 0,
-        marginRight: 0,
-        marginLeft: 0,
-        height: 300,
         width: 162,
+        height: 250,
+        marginTop: 15,
+        marginBottom: 15,
+        marginLeft: 10,
+        marginRight: 10,
       }}
     >
-      <View style={{ flex: 1, paddingBottom: 1, height: 243 }}>
-        <Image style={{ width: 162, height: 243 }} source={{ uri: img }} />
-      </View>
-      <View style={{ flex: 1, flexDirection: 'row' }}>
-        <View style={{ flex: 0.7, alignSelf: 'flex-end' }}>
-          <Text>{title}</Text>
+      <Image style={{ width: 162, height: 243 }} source={{ uri: img }} />
+      <View style={{ flex: 1, flexDirection: 'row'}}>
+        <View style={{ flex: 0.7 }}>
+          <Text 
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            style={{
+              color: '#fff'
+            }}>
+              {title}
+            </Text>
         </View>
-        <View style={{ flex: 0.3, alignSelf: 'flex-end' }}>
-          <Text style={{ textAlign: 'right' }}>{year}</Text>
+        <View style={{ flex: 0.3 }}>
+          <Text style={{ textAlign: 'right', color: '#fff', opacity: 0.5 }}>{year}</Text>
         </View>
       </View>
       {Boolean(releases.length) &&
